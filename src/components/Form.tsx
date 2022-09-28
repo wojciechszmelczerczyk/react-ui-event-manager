@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import "../index.css";
 
 const Form = ({
@@ -24,52 +25,75 @@ const Form = ({
   };
 
   return (
-    <div className='flex min-h-screen justify-center items-center'>
-      <div className='flex flex-col items-center h-96 bg-slate-600 rounded-lg shadow-lg'>
-        <h1 className='text-white my-6'>Event Manager App</h1>
-        <form className='flex flex-col items-center h-80 space-y-10 mx-3'>
-          <div className='flex'>
-            <label className='text-white'>First name</label>
-            <input
-              className='mx-2'
-              onChange={(e) => handleFirstName(e.currentTarget.value)}
-              type='text'
-            />
+    <div className='flex justify-center items-center  min-h-screen text-gray-800'>
+      <div className='xl:w-144'>
+        <div className='block bg-white shadow-lg rounded-lg'>
+          <div className='px-4 md:px-0'>
+            <div className='md:p-12 md:mx-6'>
+              <div className='text-center'>
+                <img
+                  className='mx-auto w-10'
+                  src='https://img.icons8.com/doodle/48/FA5252/calendar--v2.png'
+                  alt='logo'
+                />
+                <h4 className='text-xl font-semibold mt-1 mb-12 pb-1'>
+                  Event Manager
+                </h4>
+              </div>
+              <form>
+                <div className='mb-4'>
+                  <input
+                    type='text'
+                    onChange={(e) => handleFirstName(e.currentTarget.value)}
+                    className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                    placeholder='First Name'
+                  />
+                </div>
+                <div className='mb-4'>
+                  <input
+                    type='text'
+                    onChange={(e) => handleLastName(e.currentTarget.value)}
+                    className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                    placeholder='Last name'
+                  />
+                </div>
+                <div className='mb-4'>
+                  <input
+                    type='text'
+                    onChange={(e) => handleEmail(e.currentTarget.value)}
+                    className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                    placeholder='Email'
+                  />
+                </div>
+                <div className='mb-4'>
+                  <input
+                    type='password'
+                    onChange={(e) => handlePassword(e.currentTarget.value)}
+                    className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                    placeholder='Password'
+                  />
+                </div>
+                <div className='text-center pt-1 mb-12 pb-1'>
+                  <button
+                    className='inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3'
+                    onClick={handleOp}
+                    type='submit'
+                  >
+                    Log in
+                  </button>
+                </div>
+                <div className='flex items-center justify-between pb-6'>
+                  <NavLink
+                    className='mb-0 mr-2 hover:text-blue-500'
+                    to='/login'
+                  >
+                    Already have an account?
+                  </NavLink>
+                </div>
+              </form>
+            </div>
           </div>
-          <div className='flex'>
-            <label className='text-white'>Last name</label>
-            <input
-              className='mx-2'
-              onChange={(e) => handleLastName(e.currentTarget.value)}
-              type='text'
-            />
-          </div>
-          <div className='flex'>
-            <label className='text-white'>Email</label>
-            <input
-              className='mx-2'
-              onChange={(e) => handleEmail(e.currentTarget.value)}
-              type='text'
-            />
-          </div>
-
-          <div className='flex'>
-            <label className='text-white'>Password</label>
-            <input
-              className='mx-2'
-              onChange={(e) => handlePassword(e.currentTarget.value)}
-              type='password'
-            />
-          </div>
-
-          <button
-            className='bg-yellow-600 w-32 rounded-lg'
-            onClick={handleOp}
-            type='submit'
-          >
-            Register
-          </button>
-        </form>
+        </div>
       </div>
     </div>
   );
