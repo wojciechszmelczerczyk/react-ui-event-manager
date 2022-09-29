@@ -88,6 +88,7 @@ const Form = ({
                     <div className='mb-4'>
                       <input
                         type='text'
+                        data-cy='firstNameInput'
                         onChange={(e) => handleFirstName(e.currentTarget.value)}
                         className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
                         placeholder='First Name'
@@ -96,6 +97,7 @@ const Form = ({
                     <div className='mb-4'>
                       <input
                         type='text'
+                        data-cy='lastNameInput'
                         onChange={(e) => handleLastName(e.currentTarget.value)}
                         className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
                         placeholder='Last name'
@@ -107,6 +109,7 @@ const Form = ({
                 <div className='mb-4'>
                   <input
                     type='text'
+                    data-cy='emailInput'
                     onChange={(e) => handleEmail(e.currentTarget.value)}
                     className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
                     placeholder='Email'
@@ -115,6 +118,7 @@ const Form = ({
                 <div className='mb-4'>
                   <input
                     type='password'
+                    data-cy='passwordInput'
                     onChange={(e) => handlePassword(e.currentTarget.value)}
                     className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
                     placeholder='Password'
@@ -122,6 +126,7 @@ const Form = ({
                 </div>
                 <div className='text-center pt-1 mb-12 pb-1'>
                   <button
+                    data-cy='formBtn'
                     className='inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3'
                     onClick={handleOp}
                     type='submit'

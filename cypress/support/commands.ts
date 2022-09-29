@@ -1,3 +1,5 @@
+import { IUser } from "../../src/types/User";
+
 /// <reference types="cypress" />
 // ***********************************************
 // This example commands.ts shows you how to
@@ -11,8 +13,21 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+// Cypress.Commands.add("login", (email, password) => {});
 //
+Cypress.Commands.add("register", (user) => {
+  cy.visit("http://localhost:5000/");
+  cy.get("[data-cy='firstNameInput']").type(user.firstName);
+  cy.get("[data-cy='lastNameInput']").type(user.lastName);
+  cy.get("[data-cy='emailInput']").type(user.email);
+  cy.get("[data-cy='passwordInput']").type(user.password);
+  cy.get("[data-cy='formBtn']").click();
+
+  cy.location().should((loc) => {
+    expect(loc.href).to.eq("http://localhost:5000/login");
+  });
+});
+
 //
 // -- This is a child command --
 // Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
@@ -25,13 +40,16 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      // login(email: string, password: string): Chainable<void>
+      //   drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
+      //   dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
+      //   visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
+      register(user: IUser): Chainable<void>;
+    }
+  }
+}
+
+export {};
