@@ -3,6 +3,7 @@ import "../index.css";
 
 const Form = ({
   handleOp,
+  accountExist,
   setFirstName,
   setLastName,
   setEmail,
@@ -79,16 +80,22 @@ const Form = ({
                     onClick={handleOp}
                     type='submit'
                   >
-                    Log in
+                    {accountExist ? "Log in" : "Sign up"}
                   </button>
                 </div>
                 <div className='flex items-center justify-between pb-6'>
-                  <NavLink
-                    className='mb-0 mr-2 hover:text-blue-500'
-                    to='/login'
-                  >
-                    Already have an account?
-                  </NavLink>
+                  {accountExist ? (
+                    <NavLink className='mb-0 mr-2 hover:text-blue-500' to='/'>
+                      Don't have an account?
+                    </NavLink>
+                  ) : (
+                    <NavLink
+                      className='mb-0 mr-2 hover:text-blue-500'
+                      to='/login'
+                    >
+                      Already have an account?
+                    </NavLink>
+                  )}
                 </div>
               </form>
             </div>

@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RegisterComponent from "./pages/RegisterComponent";
 import CalendarComponent from "./pages/Calendar";
+import LoginComponent from "./pages/LoginComponent";
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<RegisterComponent />} path='/' />
+          <Route element={<LoginComponent />} path='/login' />
           <Route element={<CalendarComponent />} path='/calendar' />
         </Routes>
       </BrowserRouter>
