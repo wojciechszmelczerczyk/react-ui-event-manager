@@ -8,6 +8,7 @@ const LoginComponent = () => {
   const [lastName, setLastName] = useState(null);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const [errors, setErrors] = useState(null);
   const navigate = useNavigate();
 
   const handleRegister = async (e: any) => {
@@ -27,6 +28,8 @@ const LoginComponent = () => {
   return (
     <Form
       handleOp={handleRegister}
+      errors={errors}
+      setErrors={setErrors}
       accountExist={true}
       setFirstName={setFirstName}
       setLastName={setLastName}

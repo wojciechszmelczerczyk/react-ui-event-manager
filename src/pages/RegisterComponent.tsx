@@ -8,22 +8,29 @@ const RegisterComponent = () => {
   const [lastName, setLastName] = useState(null);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
 
   const handleRegister = async (e: any) => {
     e.preventDefault();
+    try {
+      const newUser = await register({ firstName, lastName, email, password });
 
-    const newUser = await register({ firstName, lastName, email, password });
-
-    if (newUser) {
-      navigate("/login");
+      if (newUser) {
+        navigate("/login");
+      }
+    } catch (e) {
+      const errors = e.response.data.split(":");
+      setErrors(errors);
     }
   };
 
   return (
     <Form
       handleOp={handleRegister}
+      errors={errors}
+      setErrors={setErrors}
       accountExist={false}
       setFirstName={setFirstName}
       setLastName={setLastName}

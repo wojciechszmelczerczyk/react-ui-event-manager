@@ -3,6 +3,8 @@ import "../index.css";
 
 const Form = ({
   handleOp,
+  errors,
+  setErrors,
   accountExist,
   setFirstName,
   setLastName,
@@ -10,18 +12,22 @@ const Form = ({
   setPassword,
 }: any) => {
   const handleFirstName = (firstName: string) => {
+    setErrors([]);
     setFirstName(firstName);
   };
 
   const handleLastName = (lastName: string) => {
+    setErrors([]);
     setLastName(lastName);
   };
 
   const handleEmail = (email: string) => {
+    setErrors([]);
     setEmail(email);
   };
 
   const handlePassword = (password: string) => {
+    setErrors([]);
     setPassword(password);
   };
 
@@ -40,6 +46,37 @@ const Form = ({
                 <h4 className='text-xl font-semibold mt-1 mb-12 pb-1'>
                   Event Manager
                 </h4>
+                <div
+                  className={
+                    errors.length
+                      ? "flex flex-col items-start max-h-40 bg-red-500 rounded-lg my-6 py-2 px-2 shadow-lg"
+                      : ""
+                  }
+                >
+                  {errors.length ? (
+                    <>
+                      {errors
+                        .filter(
+                          (err: any) =>
+                            // include error messages with specific string
+                            err.includes("Please") | err.includes("Minimum")
+                        )
+                        .map((filteredErr: any) => (
+                          <li className='mx-2 list-none	text-white'>
+                            {filteredErr.includes(",") ? (
+                              // if error message include ',' char, use regex and cut everything after symbol
+                              <>{filteredErr.replace(/, [a-zA-Z]*/, "")}</>
+                            ) : (
+                              // otherwise display error
+                              <>{filteredErr}</>
+                            )}
+                          </li>
+                        ))}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </div>
               <form>
                 <div className='mb-4'>
