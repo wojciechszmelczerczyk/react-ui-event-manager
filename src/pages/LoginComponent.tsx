@@ -8,26 +8,31 @@ const LoginComponent = () => {
   const [lastName, setLastName] = useState(null);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
-  const [errors, setErrors] = useState(null);
+  const [errors, setErrors] = useState([]);
+
   const navigate = useNavigate();
 
-  const handleRegister = async (e: any) => {
+  const handleLogin = async (e: any) => {
     e.preventDefault();
+    try {
+      const newUser = await login({ firstName, lastName, email, password });
 
-    const newUser = await login({ firstName, lastName, email, password });
+      if (newUser) {
+        localStorage.setItem("at", newUser.data.accessToken);
+        localStorage.setItem("rt", newUser.data.refreshToken);
 
-    if (newUser) {
-      localStorage.setItem("at", newUser.data.accessToken);
-      localStorage.setItem("rt", newUser.data.refreshToken);
-
-      // navigate to main page
-      navigate("/calendar");
+        // navigate to main page
+        navigate("/calendar");
+      }
+    } catch (e) {
+      const errors = e.response.data.split(":");
+      setErrors(errors);
     }
   };
 
   return (
     <Form
-      handleOp={handleRegister}
+      handleOp={handleLogin}
       errors={errors}
       setErrors={setErrors}
       accountExist={true}

@@ -59,7 +59,9 @@ const Form = ({
                         .filter(
                           (err: any) =>
                             // include error messages with specific string
-                            err.includes("Please") | err.includes("Minimum")
+                            err.includes("Please") |
+                            err.includes("Minimum") |
+                            err.includes("Provide")
                         )
                         .map((filteredErr: any) => (
                           <li className='mx-2 list-none	text-white'>
@@ -79,22 +81,29 @@ const Form = ({
                 </div>
               </div>
               <form>
-                <div className='mb-4'>
-                  <input
-                    type='text'
-                    onChange={(e) => handleFirstName(e.currentTarget.value)}
-                    className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-                    placeholder='First Name'
-                  />
-                </div>
-                <div className='mb-4'>
-                  <input
-                    type='text'
-                    onChange={(e) => handleLastName(e.currentTarget.value)}
-                    className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-                    placeholder='Last name'
-                  />
-                </div>
+                {accountExist ? (
+                  ""
+                ) : (
+                  <>
+                    <div className='mb-4'>
+                      <input
+                        type='text'
+                        onChange={(e) => handleFirstName(e.currentTarget.value)}
+                        className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                        placeholder='First Name'
+                      />
+                    </div>
+                    <div className='mb-4'>
+                      <input
+                        type='text'
+                        onChange={(e) => handleLastName(e.currentTarget.value)}
+                        className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                        placeholder='Last name'
+                      />
+                    </div>
+                  </>
+                )}
+
                 <div className='mb-4'>
                   <input
                     type='text'
