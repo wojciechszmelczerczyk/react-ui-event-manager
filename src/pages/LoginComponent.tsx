@@ -27,7 +27,7 @@ const LoginComponent = () => {
         setAuthenticated(true);
 
         // navigate to main page
-        navigate("/calendar");
+        navigate("/");
       }
     } catch (e) {
       const errors = e.response.data.split(":");

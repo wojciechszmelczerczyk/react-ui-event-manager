@@ -142,7 +142,7 @@ const Form = ({
                     <NavLink
                       data-cy='linkToForm'
                       className='mb-0 mr-2 hover:text-blue-500'
-                      to='/'
+                      to='/register'
                     >
                       Don't have an account?
                     </NavLink>
