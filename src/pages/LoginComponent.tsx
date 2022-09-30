@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Form from "../components/Form";
+import { AuthCtx } from "../context/AuthContext";
 import { login } from "../services/UserService";
 
 const LoginComponent = () => {
@@ -9,6 +10,7 @@ const LoginComponent = () => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [errors, setErrors] = useState([]);
+  const { setAuthenticated } = useContext(AuthCtx);
 
   const navigate = useNavigate();
 
@@ -20,6 +22,9 @@ const LoginComponent = () => {
       if (newUser) {
         localStorage.setItem("at", newUser.data.accessToken);
         localStorage.setItem("rt", newUser.data.refreshToken);
+
+        // update auth context after successful login
+        setAuthenticated(true);
 
         // navigate to main page
         navigate("/calendar");

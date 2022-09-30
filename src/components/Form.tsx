@@ -64,7 +64,10 @@ const Form = ({
                             err.includes("Provide")
                         )
                         .map((filteredErr: any) => (
-                          <li className='mx-2 list-none	text-white'>
+                          <li
+                            data-cy='errMsg'
+                            className='mx-2 list-none	text-white'
+                          >
                             {filteredErr.includes(",") ? (
                               // if error message include ',' char, use regex and cut everything after symbol
                               <>{filteredErr.replace(/, [a-zA-Z]*/, "")}</>
@@ -136,11 +139,16 @@ const Form = ({
                 </div>
                 <div className='flex items-center justify-between pb-6'>
                   {accountExist ? (
-                    <NavLink className='mb-0 mr-2 hover:text-blue-500' to='/'>
+                    <NavLink
+                      data-cy='linkToForm'
+                      className='mb-0 mr-2 hover:text-blue-500'
+                      to='/'
+                    >
                       Don't have an account?
                     </NavLink>
                   ) : (
                     <NavLink
+                      data-cy='linkToForm'
                       className='mb-0 mr-2 hover:text-blue-500'
                       to='/login'
                     >

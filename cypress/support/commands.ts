@@ -16,16 +16,14 @@ import { IUser } from "../../src/types/User";
 // Cypress.Commands.add("login", (email, password) => {});
 //
 Cypress.Commands.add("register", (user) => {
-  cy.visit("http://localhost:5000/");
-  cy.get("[data-cy='firstNameInput']").type(user.firstName);
+  if (user.firstName.length > 0) {
+    cy.get("[data-cy='firstNameInput']").type(user.firstName);
+  }
+
   cy.get("[data-cy='lastNameInput']").type(user.lastName);
   cy.get("[data-cy='emailInput']").type(user.email);
   cy.get("[data-cy='passwordInput']").type(user.password);
   cy.get("[data-cy='formBtn']").click();
-
-  cy.location().should((loc) => {
-    expect(loc.href).to.eq("http://localhost:5000/login");
-  });
 });
 
 //
