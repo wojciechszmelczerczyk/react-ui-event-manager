@@ -44,11 +44,12 @@ npm run start
 
 ## Client routing
 
-| Endpoint    | Authenticated |     Component     | Description   |
-| :---------- | :-----------: | :---------------: | ------------- |
-| `/`         |      \*       | CalendarComponent | User calendar |
-| `/register` |       -       | RegisterComponent | Register form |
-| `/login`    |       -       |  LoginComponent   | Login form    |
+| Endpoint       | Authenticated |      Component       | Description       |
+| :------------- | :-----------: | :------------------: | ----------------- |
+| `/`            |      \*       |  CalendarComponent   | User calendar     |
+| `/createEvent` |      \*       | CreateEventComponent | Create event form |
+| `/register`    |       -       |  RegisterComponent   | Register form     |
+| `/login`       |       -       |    LoginComponent    | Login form        |
 
 ## Tests
 
