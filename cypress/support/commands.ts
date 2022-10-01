@@ -13,7 +13,14 @@ import { IUser } from "../../src/interfaces/User";
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => {});
+Cypress.Commands.add("login", (user) => {
+  if (user.email.length > 0) {
+    cy.get("[data-cy='emailInput']").type(user.email);
+  }
+
+  cy.get("[data-cy='passwordInput']").type(user.password);
+  cy.get("[data-cy='formBtn']").click();
+});
 //
 Cypress.Commands.add("register", (user) => {
   if (user.firstName.length > 0) {
@@ -41,7 +48,7 @@ Cypress.Commands.add("register", (user) => {
 declare global {
   namespace Cypress {
     interface Chainable {
-      // login(email: string, password: string): Chainable<void>
+      login(user: IUser): Chainable<void>;
       //   drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
       //   dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
       //   visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>

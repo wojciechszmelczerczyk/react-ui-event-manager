@@ -1,6 +1,6 @@
 import users from "../fixtures/users.json";
 
-beforeEach(() => cy.visit("http://localhost:5000/"));
+beforeEach(() => cy.visit("http://localhost:5000/register"));
 
 describe("register", () => {
   it("when credentials of user are correct, redirect to login form page", () => {

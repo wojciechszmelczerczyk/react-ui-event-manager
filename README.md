@@ -133,3 +133,64 @@ it("when provided email doesn't match email regex, error div should contain a sp
 ```
 
 </details>
+
+### Login form
+
+<details>
+<summary>when credentials of user are correct, redirect to main page</summary>
+
+```javascript
+it("when credentials of user are correct, redirect to main page", () => {
+  cy.login(users[3]);
+
+  cy.location().should((loc) => {
+    expect(loc.href).to.eq("http://localhost:5000/");
+  });
+});
+```
+
+</details>
+
+<details>
+<summary>when clicked link in form, should redirect to register form</summary>
+
+```javascript
+it("when clicked link in form, should redirect to register form", () => {
+  cy.get("[data-cy='linkToForm']").click();
+
+  cy.location().should((loc) => {
+    expect(loc.href).to.eq("http://localhost:5000/register");
+  });
+});
+```
+
+</details>
+
+<details>
+<summary>when no first name is provided, error div should contain a specific error</summary>
+
+```javascript
+it("when no first name is provided, error div should contain a specific error", () => {
+  cy.login(users[1]);
+
+  cy.get("[data-cy='errMsg']").should(
+    "contain",
+    "Provide correct email. User with this email doesn't exist"
+  );
+});
+```
+
+</details>
+
+<details>
+<summary>when no first name is provided, error div should contain a specific error</summary>
+
+```javascript
+it("when no first name is provided, error div should contain a specific error", () => {
+  cy.login(users[4]);
+
+  cy.get("[data-cy='errMsg']").should("contain", "Please enter an email");
+});
+```
+
+</details>

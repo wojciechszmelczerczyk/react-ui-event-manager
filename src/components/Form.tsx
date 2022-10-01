@@ -33,7 +33,7 @@ const Form = ({
 
   return (
     <div className='flex justify-center items-center  min-h-screen text-gray-800'>
-      <div className='xl:w-144'>
+      <div className='md:h-144 md:w-128'>
         <div className='block bg-white shadow-lg rounded-lg'>
           <div className='px-4 md:px-0'>
             <div className='md:p-12 md:mx-6'>

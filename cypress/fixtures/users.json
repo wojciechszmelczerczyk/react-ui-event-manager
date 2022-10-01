@@ -16,5 +16,13 @@
     "lastName": "someLastName",
     "email": "invalidEmail",
     "password": "test123"
+  },
+  {
+    "email": "mbay@gmail.com",
+    "password": "test123"
+  },
+  {
+    "email": "",
+    "password": "test123"
   }
 ]
