@@ -109,10 +109,10 @@ it("when clicked link in form, should redirect to login form", () => {
 </details>
 
 <details>
-<summary>when no first name is provided, error div should contain a specific error</summary>
+<summary>when no first name is provided, div should contain error message</summary>
 
 ```javascript
-it("when no first name is provided, error div should contain a specific error", () => {
+it("when no first name is provided, div should contain error message", () => {
   cy.register(users[1]);
 
   cy.get("[data-cy='errMsg']").should("contain", "Please enter a first name");
@@ -122,10 +122,10 @@ it("when no first name is provided, error div should contain a specific error", 
 </details>
 
 <details>
-<summary>when provided email doesn't match email regex, error div should contain a specific error</summary>
+<summary>when provided email doesn't match email regex, div should contain error message</summary>
 
 ```javascript
-it("when provided email doesn't match email regex, error div should contain a specific error", () => {
+it("when provided email doesn't match email regex, div should contain error message", () => {
   cy.register(users[2]);
 
   cy.get("[data-cy='errMsg']").should("contain", "Please enter a valid email");
@@ -133,6 +133,7 @@ it("when provided email doesn't match email regex, error div should contain a sp
 ```
 
 </details>
+<br />
 
 ### Login form
 
@@ -167,10 +168,10 @@ it("when clicked link in form, should redirect to register form", () => {
 </details>
 
 <details>
-<summary>when no first name is provided, error div should contain a specific error</summary>
+<summary>when no first name is provided, div should contain error message</summary>
 
 ```javascript
-it("when no first name is provided, error div should contain a specific error", () => {
+it("when no first name is provided, div should contain error message", () => {
   cy.login(users[1]);
 
   cy.get("[data-cy='errMsg']").should(
@@ -183,13 +184,67 @@ it("when no first name is provided, error div should contain a specific error", 
 </details>
 
 <details>
-<summary>when no first name is provided, error div should contain a specific error</summary>
+<summary>when no first name is provided, div should contain error message</summary>
 
 ```javascript
-it("when no first name is provided, error div should contain a specific error", () => {
+it("when no first name is provided, div should contain error message", () => {
   cy.login(users[4]);
 
   cy.get("[data-cy='errMsg']").should("contain", "Please enter an email");
+});
+```
+
+</details>
+<br />
+
+### Create Event
+
+<details>
+<summary>when title and date of event are provided correctly, should redirect to main calendar page</summary>
+
+```javascript
+ it("when title and date of event are provided correctly, should redirect to main calendar page", () => {
+    cy.get("[data-cy='eventTitleInput']").type(events[0].eventTitle);
+
+    cy.get("[data-cy='createEventBtn']").click();
+
+    cy.location().should((loc) => {
+      expect(loc.href).to.eq("http://localhost:5000/");
+    });
+```
+
+</details>
+
+<details>
+<summary>when title of event not provided, div should contain error message</summary>
+
+```javascript
+it("when title of event not provided, div should contain error message", () => {
+  cy.get("[data-cy='createEventBtn']").click();
+  cy.get("[data-cy='eventError']").should(
+    "contain",
+    "Event title has to be provided"
+  );
+});
+```
+
+</details>
+
+<details>
+<summary>when date of event not provided, div should contain error message</summary>
+
+```javascript
+it("when date of event not provided, div should contain error message", () => {
+  cy.get("[data-cy='eventTitleInput']").type(events[0].eventTitle);
+
+  cy.get(".react-datetime-picker__clear-button").click({ multiple: true });
+
+  cy.get("[data-cy='createEventBtn']").click();
+
+  cy.get("[data-cy='eventError']").should(
+    "contain",
+    "Event start date has to be provided"
+  );
 });
 ```
 

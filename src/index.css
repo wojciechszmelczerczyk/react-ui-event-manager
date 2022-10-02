@@ -19,3 +19,11 @@ body {
     scrollbar-width: none;
   }
 }
+
+.react-datetime-picker__wrapper {
+  border-radius: 10px;
+}
+
+.react-calendar {
+  border-radius: 10px;
+}

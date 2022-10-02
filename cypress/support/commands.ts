@@ -21,7 +21,7 @@ Cypress.Commands.add("login", (user) => {
   cy.get("[data-cy='passwordInput']").type(user.password);
   cy.get("[data-cy='formBtn']").click();
 });
-//
+
 Cypress.Commands.add("register", (user) => {
   if (user.firstName.length > 0) {
     cy.get("[data-cy='firstNameInput']").type(user.firstName);

@@ -19,13 +19,13 @@ describe("register", () => {
     });
   });
 
-  it("when no first name is provided, error div should contain a specific error", () => {
+  it("when no first name is provided, div should contain error message", () => {
     cy.register(users[1]);
 
     cy.get("[data-cy='errMsg']").should("contain", "Please enter a first name");
   });
 
-  it("when provided email doesn't match email regex, error div should contain a specific error", () => {
+  it("when provided email doesn't match email regex, div should contain error message", () => {
     cy.register(users[2]);
 
     cy.get("[data-cy='errMsg']").should(
