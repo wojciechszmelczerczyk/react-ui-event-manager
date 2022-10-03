@@ -1,12 +1,13 @@
 import events from "../fixtures/events.json";
+import users from "../fixtures/users.json";
 import { config } from "dotenv";
 
 config();
 
 beforeEach(() => {
-  cy.visit("http://localhost:5000/createEvent");
-
-  localStorage.setItem("at", process.env.REACT_APP_JWT);
+  cy.visit("http://localhost:5000/login");
+  cy.login(users[3]);
+  cy.get("[data-cy='calendarAddEventBtn']").click();
 });
 
 describe("create event", () => {

@@ -44,7 +44,7 @@ const CalendarComponent = () => {
           data-cy='eventError'
           className={
             errors.length > 0
-              ? "absolute bottom-0 right-0 w-64 self-center min-h-fit my-6 text-white bg-red-500 rounded-lg md:w-96"
+              ? "w-64 self-center min-h-fit my-3 md:my-6 lg:my-8 text-white bg-red-500 rounded-lg md:w-96"
               : ""
           }
         >
@@ -98,7 +98,7 @@ const CalendarComponent = () => {
 
         <button
           data-cy='createEventBtn'
-          className='my-8 bg-white w-64 h-8 rounded-lg shadow-lg self-center text-white md:w-96 hover:bg-blue-500'
+          className='my-8 bg-white h-8 w-64 rounded-lg shadow-lg self-center text-white md:w-96 hover:bg-blue-500'
           onClick={addEvent}
         >
           Add

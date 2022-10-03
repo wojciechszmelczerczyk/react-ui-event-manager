@@ -44,10 +44,9 @@ const UserCalendar = (props: any) => {
           .update("end", (date: string) => new Date(date))
           .value()
       );
-
-      setProcessedEvents(eventData as any);
+      setProcessedEvents(eventData);
     });
-  }, [processedEvents]);
+  }, []);
 
   const handleEvent = async (event: any) => {
     // prompt on
@@ -66,13 +65,14 @@ const UserCalendar = (props: any) => {
       <Calendar
         className={isEventPromptVisible ? "opacity-50" : ""}
         localizer={localizer}
-        defaultDate={new Date("2022-09-30T19:33:37.055Z")}
+        defaultDate={new Date()}
         events={processedEvents}
         onSelectEvent={(e) => handleEvent(e)}
         defaultView='day'
         step={30}
       />
       <div
+        data-cy='calendarAddEventBtn'
         className={`absolute bottom-5 right-5 z-10 flex items-center justify-center w-16 h-16 rounded-full shadow-lg bg-blue-500 ${
           isEventPromptVisible ? "opacity-50" : ""
         }`}

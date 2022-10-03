@@ -33,6 +33,16 @@ Cypress.Commands.add("register", (user) => {
   cy.get("[data-cy='formBtn']").click();
 });
 
+Cypress.Commands.add("createEvent", (event) => {
+  cy.get("[data-cy='calendarAddEventBtn']").click();
+
+  cy.get("[data-cy='eventTitleInput']").type(event.eventTitle);
+
+  cy.get("[data-cy='createEventBtn']").click();
+
+  cy.get(".rbc-event-content").contains(event.eventTitle).click();
+});
+
 //
 // -- This is a child command --
 // Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
@@ -48,11 +58,12 @@ Cypress.Commands.add("register", (user) => {
 declare global {
   namespace Cypress {
     interface Chainable {
+      register(user: IUser): Chainable<void>;
       login(user: IUser): Chainable<void>;
+      createEvent(event: any): Chainable<void>;
       //   drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
       //   dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
       //   visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-      register(user: IUser): Chainable<void>;
     }
   }
 }

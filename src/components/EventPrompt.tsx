@@ -16,12 +16,14 @@ const EventPrompt = ({ eventDetails }: any) => {
 
   return (
     <div
+      data-cy='eventDetailsPopup'
       className={`flex flex-col absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 z-10 h-48 w-80 md:h-96 md:w-144 bg-white rounded-lg shadow-lg ${
         isDialogVisible ? "opacity-50" : ""
       }`}
     >
       <div className='flex'>
         <p
+          data-cy='closeEventPrompt'
           className='text-gray-500 cursor-pointer self-end mx-3 my-2 md:text-2xl'
           onClick={() => setIsEventPromptVisible(false)}
         >
@@ -33,6 +35,7 @@ const EventPrompt = ({ eventDetails }: any) => {
             onClick={() => setIsDialogVisible(true)}
           >
             <FontAwesomeIcon
+              data-cy='deleteEvent'
               className='cursor-pointer md:text-xl'
               icon={faTrash}
               color='red'

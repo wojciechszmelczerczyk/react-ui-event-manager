@@ -19,7 +19,10 @@ const DeleteDialog = ({ eventDetails }: any) => {
   };
 
   return (
-    <div className='flex flex-col absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 h-20 w-64 md:h-28 md:w-80 bg-white shadow-2xl rounded-lg z-50'>
+    <div
+      data-cy='deleteDialog'
+      className='flex flex-col absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 h-20 w-64 md:h-28 md:w-80 bg-white shadow-2xl rounded-lg z-50'
+    >
       <h1 className='mx-6 my-2 md:my-3'>Do you want to delete event?</h1>
       <div className='flex my-2 md:my-8 self-end'>
         <p className='mx-2 cursor-pointer' onClick={handleCancel}>
