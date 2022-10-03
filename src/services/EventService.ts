@@ -11,3 +11,15 @@ export const createEvent = async (at: any, eventData: any) => {
     headers: { Authorization: `Bearer ${at}` },
   });
 };
+
+export const getEvent = async (at: any, title: any) => {
+  return await axiosInstance.get(`/event/${title}`, {
+    headers: { Authorization: `Bearer ${at}` },
+  });
+};
+
+export const deleteEvent = async (at: any, id: any) => {
+  return await axiosInstance.delete(`/event/${id}`, {
+    headers: { Authorization: `Bearer ${at}` },
+  });
+};
