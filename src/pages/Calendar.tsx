@@ -9,11 +9,14 @@ import _ from "lodash";
 import { IProcessedEvent } from "../interfaces/Event";
 import EventPrompt from "../components/EventPrompt";
 import { EventPromptCtx } from "../context/EventPromptContext";
+import DeleteDialog from "../components/DeleteDialog";
+import { DeleteDialogCtx } from "../context/DeleteDialogContext";
 
 const UserCalendar = (props: any) => {
   const { authenticated } = useContext(AuthCtx);
   const { isEventPromptVisible, setIsEventPromptVisible } =
     useContext(EventPromptCtx);
+  const { isDialogVisible } = useContext(DeleteDialogCtx);
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const [eventDetails, setEventDetails] = useState({});
@@ -59,6 +62,7 @@ const UserCalendar = (props: any) => {
   return (
     <div className='h-screen overflow-y-scroll z-50 no-scrollbar'>
       {isEventPromptVisible ? <EventPrompt eventDetails={eventDetails} /> : ""}
+      {isDialogVisible ? <DeleteDialog eventDetails={eventDetails} /> : ""}
       <Calendar
         className={isEventPromptVisible ? "opacity-50" : ""}
         localizer={localizer}
@@ -70,13 +74,13 @@ const UserCalendar = (props: any) => {
       />
       <div
         className={`absolute bottom-5 right-5 z-10 flex items-center justify-center w-16 h-16 rounded-full shadow-lg bg-blue-500 ${
-          isEventPromptVisible ? "opacity-50 pointer-events-none:" : ""
+          isEventPromptVisible ? "opacity-50" : ""
         }`}
       >
         {isEventPromptVisible ? (
           <p className='text-5xl text-white'>+</p>
         ) : (
-          <NavLink className='text-5xl text-white disabled' to='/createEvent'>
+          <NavLink className='text-5xl text-white' to='/createEvent'>
             +
           </NavLink>
         )}

@@ -8,10 +8,12 @@ import { AuthCtx } from "./context/AuthContext";
 import { EventPromptCtx } from "./context/EventPromptContext";
 
 import { useState } from "react";
+import { DeleteDialogCtx } from "./context/DeleteDialogContext";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [isEventPromptVisible, setIsEventPromptVisible] = useState(false);
+  const [isDialogVisible, setIsDialogVisible] = useState(false);
 
   return (
     <div className='App'>
@@ -20,12 +22,16 @@ function App() {
           <EventPromptCtx.Provider
             value={{ isEventPromptVisible, setIsEventPromptVisible }}
           >
-            <Routes>
-              <Route element={<Calendar />} path='/' />
-              <Route element={<CreateEventComponent />} path='/createEvent' />
-              <Route element={<RegisterComponent />} path='/register' />
-              <Route element={<LoginComponent />} path='/login' />
-            </Routes>
+            <DeleteDialogCtx.Provider
+              value={{ isDialogVisible, setIsDialogVisible }}
+            >
+              <Routes>
+                <Route element={<Calendar />} path='/' />
+                <Route element={<CreateEventComponent />} path='/createEvent' />
+                <Route element={<RegisterComponent />} path='/register' />
+                <Route element={<LoginComponent />} path='/login' />
+              </Routes>
+            </DeleteDialogCtx.Provider>
           </EventPromptCtx.Provider>
         </AuthCtx.Provider>
       </BrowserRouter>

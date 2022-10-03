@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { EventPromptCtx } from "../context/EventPromptContext";
-import { deleteEvent } from "../services/EventService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBell,
@@ -9,14 +8,18 @@ import {
   faPen,
   faClock,
 } from "@fortawesome/free-solid-svg-icons";
+import { DeleteDialogCtx } from "../context/DeleteDialogContext";
 
 const EventPrompt = ({ eventDetails }: any) => {
   const { setIsEventPromptVisible } = useContext(EventPromptCtx);
-
-  const at = localStorage.getItem("at");
+  const { isDialogVisible, setIsDialogVisible } = useContext(DeleteDialogCtx);
 
   return (
-    <div className='flex flex-col absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 z-10 h-48 w-80 md:h-96 md:w-144 bg-white rounded-lg shadow-lg'>
+    <div
+      className={`flex flex-col absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 z-10 h-48 w-80 md:h-96 md:w-144 bg-white rounded-lg shadow-lg ${
+        isDialogVisible ? "opacity-50" : ""
+      }`}
+    >
       <div className='flex'>
         <p
           className='text-gray-500 cursor-pointer self-end mx-3 my-2 md:text-2xl'
@@ -27,10 +30,10 @@ const EventPrompt = ({ eventDetails }: any) => {
         <div className='flex grow justify-end'>
           <div
             className='mx-2 text-gray-500 self-center'
-            onClick={() => deleteEvent(at, eventDetails._id)}
+            onClick={() => setIsDialogVisible(true)}
           >
             <FontAwesomeIcon
-              className='md:text-xl'
+              className='cursor-pointer md:text-xl'
               icon={faTrash}
               color='red'
             />
