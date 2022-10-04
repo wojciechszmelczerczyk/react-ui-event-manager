@@ -5,7 +5,6 @@ import {
   faBell,
   faCalendar,
   faTrash,
-  faPen,
   faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import { DeleteDialogCtx } from "../context/DeleteDialogContext";
@@ -40,9 +39,6 @@ const EventPrompt = ({ eventDetails }: any) => {
               icon={faTrash}
               color='red'
             />
-          </div>
-          <div className='mx-2 md:mx-4 self-center'>
-            <FontAwesomeIcon className='md:text-xl' icon={faPen} color='gray' />
           </div>
         </div>
       </div>
