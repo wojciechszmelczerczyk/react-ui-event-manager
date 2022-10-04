@@ -19,7 +19,7 @@ describe("login", () => {
     });
   });
 
-  it("when no first name is provided, div should contain error message", () => {
+  it("when provided email is incorrect, div should contain error message", () => {
     cy.login(users[1]);
 
     cy.get("[data-cy='errMsg']").should(
@@ -28,7 +28,7 @@ describe("login", () => {
     );
   });
 
-  it("when no first name is provided, div should contain error message", () => {
+  it("when no email is provided, div should contain error message", () => {
     cy.login(users[4]);
 
     cy.get("[data-cy='errMsg']").should("contain", "Please enter an email");

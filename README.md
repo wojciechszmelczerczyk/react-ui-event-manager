@@ -9,6 +9,7 @@ UI for Event Manager App
 - [Technologies](#technologies)
 - [Usage](#usage)
 - [Client routing](#client-routing)
+- [Context](#context)
 - [Tests](#tests)
 
 ## Technologies
@@ -51,6 +52,28 @@ npm run start
 | `/register`    |       -       |  RegisterComponent   | Register form     |
 | `/login`       |       -       |    LoginComponent    | Login form        |
 
+## Context
+
+Tracking state of global changes.
+
+```javascript
+export const AuthCtx = createContext({
+  authenticated: false,
+  setAuthenticated: (auth: boolean) => {},
+});
+```
+
+ex.
+
+```javascript
+const newUser = await login({ firstName, lastName, email, password });
+
+if (newUser) {
+  // update auth context after successful login
+  setAuthenticated(true);
+}
+```
+
 ## Tests
 
 ### To run tests
@@ -59,9 +82,17 @@ npm run start
 npm run e2e
 ```
 
+### Remarks
+
+- Please make sure fourth user (i.e users[3]) in `fixtures` directory exist in database, otherwise ui test for login will fail.
+
+- Please after register spec tests delete in database last added user (i.e users[2]) in `fixtures` directory since no afterAll hook was implemented.
+
 ### Register custom function
 
-Fill all inputs and submit
+<details>
+<summary>Fill all inputs and submit
+</summary>
 
 ```javascript
 Cypress.Commands.add("register", (user) => {
@@ -76,7 +107,52 @@ Cypress.Commands.add("register", (user) => {
 });
 ```
 
-### Register form
+</details>
+<br />
+
+### Login custom function
+
+<details>
+<summary>Fill all inputs and submit
+</summary>
+
+```javascript
+Cypress.Commands.add("login", (user) => {
+  if (user.email.length > 0) {
+    cy.get("[data-cy='emailInput']").type(user.email);
+  }
+
+  cy.get("[data-cy='passwordInput']").type(user.password);
+  cy.get("[data-cy='formBtn']").click();
+});
+```
+
+</details>
+
+<br />
+
+### Create event custom function
+
+<details>
+<summary>fill title input, submit, event should appear in callendar</summary>
+
+```javascript
+Cypress.Commands.add("createEvent", (event) => {
+  cy.get("[data-cy='calendarAddEventBtn']").click();
+
+  cy.get("[data-cy='eventTitleInput']").type(event.eventTitle);
+
+  cy.get("[data-cy='createEventBtn']").click();
+
+  cy.get(".rbc-event-content").contains(event.eventTitle).click();
+});
+```
+
+</details>
+
+<br />
+
+### `Register form`
 
 <details>
 <summary>when credentials of user are correct, redirect to login form page</summary>
@@ -135,7 +211,7 @@ it("when provided email doesn't match email regex, div should contain error mess
 </details>
 <br />
 
-### Login form
+### `Login form`
 
 <details>
 <summary>when credentials of user are correct, redirect to main page</summary>
@@ -168,10 +244,10 @@ it("when clicked link in form, should redirect to register form", () => {
 </details>
 
 <details>
-<summary>when no first name is provided, div should contain error message</summary>
+<summary>when provided email is incorrect, div should contain error message</summary>
 
 ```javascript
-it("when no first name is provided, div should contain error message", () => {
+it("when provided email is incorrect, div should contain error message", () => {
   cy.login(users[1]);
 
   cy.get("[data-cy='errMsg']").should(
@@ -184,10 +260,10 @@ it("when no first name is provided, div should contain error message", () => {
 </details>
 
 <details>
-<summary>when no first name is provided, div should contain error message</summary>
+<summary>when no email is provided, div should contain error message</summary>
 
 ```javascript
-it("when no first name is provided, div should contain error message", () => {
+it("when no email is provided, div should contain error message", () => {
   cy.login(users[4]);
 
   cy.get("[data-cy='errMsg']").should("contain", "Please enter an email");
@@ -197,7 +273,7 @@ it("when no first name is provided, div should contain error message", () => {
 </details>
 <br />
 
-### Create Event
+### `Create Event`
 
 <details>
 <summary>when title and date of event are provided correctly, should redirect to main calendar page</summary>
@@ -245,6 +321,67 @@ it("when date of event not provided, div should contain error message", () => {
     "contain",
     "Event start date has to be provided"
   );
+});
+```
+
+</details>
+<br />
+
+### `Calendar`
+
+<details>
+<summary>when add event button clicked, should redirect to create event form</summary>
+
+```javascript
+it("when add event button clicked, should redirect to create event form", () => {
+    cy.get("[data-cy='calendarAddEventBtn']").click();
+
+    cy.location().should((loc) => {
+      expect(loc.href).to.eq("http://localhost:5000/createEvent");
+    });
+```
+
+</details>
+
+<details>
+<summary>when event clicked, event details popup should appear</summary>
+
+```javascript
+it("when event clicked, event details popup should appear", () => {
+  cy.createEvent(events[2]);
+
+  cy.get("[data-cy='eventDetailsPopup']").should("exist");
+});
+```
+
+</details>
+
+<details>
+<summary>when event details prompt open and click close symbol, should disappear</summary>
+
+```javascript
+it("when event details prompt open and click close symbol, should disappear", () => {
+  // click add event button on main calendar
+  cy.createEvent(events[2]);
+
+  cy.get("[data-cy='closeEventPrompt']").click();
+
+  cy.get("[data-cy='eventDetailsPopup']").should("not.exist");
+});
+```
+
+</details>
+
+<details>
+<summary>when event details prompt open and click trash icon, delete dialog should appear</summary>
+
+```javascript
+it("when event details prompt open and click trash icon, delete dialog should appear", () => {
+  cy.createEvent(events[2]);
+
+  cy.get("[data-cy='deleteEvent']").click();
+
+  cy.get("[data-cy='deleteDialog']").should("exist");
 });
 ```
 

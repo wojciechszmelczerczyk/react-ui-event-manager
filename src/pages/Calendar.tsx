@@ -1,5 +1,5 @@
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthCtx } from "../context/AuthContext";
 import { getEvents, getEvent } from "../services/EventService";
@@ -18,7 +18,6 @@ const UserCalendar = (props: any) => {
     useContext(EventPromptCtx);
   const { isDialogVisible } = useContext(DeleteDialogCtx);
   const navigate = useNavigate();
-  const [events, setEvents] = useState([]);
   const [eventDetails, setEventDetails] = useState({});
   const [processedEvents, setProcessedEvents] = useState<IProcessedEvent[]>([]);
   const at = localStorage.getItem("at");
@@ -28,14 +27,7 @@ const UserCalendar = (props: any) => {
     if (!authenticated) navigate("/login");
 
     getEvents(at).then((res) => {
-      setEvents(res.data);
-
-      const keyMapping: any = {
-        eventTitle: "title",
-        startDate: "start",
-        endDate: "end",
-      };
-
+      // modify events to fit react big calendar event scheme
       const eventData: IProcessedEvent[] = _.map(res.data, (e) =>
         _.chain(e)
           .pick("eventTitle", "startDate", "endDate")
@@ -44,12 +36,18 @@ const UserCalendar = (props: any) => {
           .update("end", (date: string) => new Date(date))
           .value()
       );
+
       setProcessedEvents(eventData);
     });
-  }, []);
+  }, [processedEvents]);
+
+  const keyMapping: any = {
+    eventTitle: "title",
+    startDate: "start",
+    endDate: "end",
+  };
 
   const handleEvent = async (event: any) => {
-    // prompt on
     setIsEventPromptVisible(true);
 
     // find user by title
