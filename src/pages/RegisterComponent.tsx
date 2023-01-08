@@ -14,14 +14,12 @@ const RegisterComponent = () => {
 
   const handleRegister = async (e: any) => {
     e.preventDefault();
-    try {
-      const newUser = await register({ firstName, lastName, email, password });
+    const newUser = await register({ firstName, lastName, email, password });
 
-      if (newUser) {
-        navigate("/login");
-      }
-    } catch (e) {
-      const errors = e.response.data.split(":");
+    if (!newUser.data.err) {
+      navigate("/login");
+    } else if (newUser.data.err) {
+      const errors = newUser.data.split(":");
       setErrors(errors);
     }
   };

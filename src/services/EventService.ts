@@ -7,7 +7,7 @@ export const getEvents = async (at: any) => {
 };
 
 export const createEvent = async (at: any, eventData: any) => {
-  return await axiosInstance.post("/event/create", eventData, {
+  return await axiosInstance.post("/event", eventData, {
     headers: { Authorization: `Bearer ${at}` },
   });
 };

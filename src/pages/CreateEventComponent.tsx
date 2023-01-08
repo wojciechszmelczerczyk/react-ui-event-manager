@@ -20,11 +20,12 @@ const CalendarComponent = () => {
   });
 
   const addEvent = async () => {
-    try {
-      await createEvent(at, { eventTitle, startDate, endDate });
+    const res = await createEvent(at, { eventTitle, startDate, endDate });
+
+    if (!res.data.err) {
       navigate("/");
-    } catch (e) {
-      const errors = e.response.data.split(":");
+    } else if (res.data.err) {
+      const errors = res.data.err.split(":");
       setErrors(errors);
     }
   };

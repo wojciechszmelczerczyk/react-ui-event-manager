@@ -16,21 +16,19 @@ const LoginComponent = () => {
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
-    try {
-      const newUser = await login({ firstName, lastName, email, password });
+    const newUser = await login({ firstName, lastName, email, password });
 
-      if (newUser) {
-        localStorage.setItem("at", newUser.data.accessToken);
-        localStorage.setItem("rt", newUser.data.refreshToken);
+    if (!newUser.data.err) {
+      localStorage.setItem("at", newUser.data.accessToken);
+      localStorage.setItem("rt", newUser.data.refreshToken);
 
-        // update auth context after successful login
-        setAuthenticated(true);
+      // update auth context after successful login
+      setAuthenticated(true);
 
-        // navigate to main page
-        navigate("/");
-      }
-    } catch (e) {
-      const errors = e.response.data.split(":");
+      // navigate to main page
+      navigate("/");
+    } else if (newUser.data.err) {
+      const errors = newUser.data.split(":");
       setErrors(errors);
     }
   };
